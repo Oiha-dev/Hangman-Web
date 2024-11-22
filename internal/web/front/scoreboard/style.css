@@ -1,13 +1,13 @@
 @font-face {
     font-family: 'FeltPen';
-    src: url('../../../../data/Dker-FeltPen.ttf') format('woff2');
+    src: url('/data/Dker-FeltPen.ttf') format('woff2');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Chalk';
-    src: url('../../../../data/Neat-Chalk.ttf') format('woff');
+    src: url('/data/Neat-Chalk.ttf') format('woff');
     font-weight: normal;
     font-style: normal;
 }
@@ -23,7 +23,7 @@ body {
     height: 100vh;
     margin: 0;
     background-color: #000;
-    background-image: url('../../../../data/blackboard.webp');
+    background-image: url('/data/blackboard.webp');
     background-size: cover;
     background-position: center;
 }
@@ -60,8 +60,8 @@ th, td {
     display: flex;
     flex-direction: column;
     position: absolute;
-    left: 20%;
-    bottom: 15%;
+    left: 15%;
+    bottom: 12%;
     white-space: pre;
     font-size: 3em;
 }
