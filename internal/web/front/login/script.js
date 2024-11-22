@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const rotationDirection = Math.random() < 0.5 ? -1 : 1;
         const randomDelay = Math.random() * 1.5 + 's';
         span.style.setProperty('--initial-rotate', initialRotation);
-        span.style.setProperty('--rotation-direction', rotationDirection);
+        span.style.setProperty('--rotation-direction', rotationDirection + 1);
         span.style.setProperty('--random-delay', randomDelay);
     });
 });

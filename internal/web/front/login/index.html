@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Hangman Web - Login</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="/static/script.js" defer></script>
 </head>
 <body>
 
@@ -23,10 +23,14 @@
 </div>
 
 <div class="login-container">
-    <form>
-        <input type="text" placeholder="Enter your name" required>
-        <button type="submit">⠀Start Game⠀</button>
+    {{if .Name}}
+    <p>Welcome, {{.Name}}!</p>
+    {{else}}
+    <form method="POST" action="/submit">
+        <input type="text" name="name" placeholder="Enter your name" required>
+        <button type="submit">Start Game</button>
     </form>
+    {{end}}
 </div>
 
 </body>

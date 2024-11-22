@@ -1,13 +1,13 @@
 @font-face {
     font-family: 'FeltPen';
-    src: url('../../../data/Dker-FeltPen.ttf') format('woff2');
+    src: url('../data/Dker-FeltPen.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Chalk';
-    src: url('../../../data/Neat-Chalk.ttf') format('woff');
+    src: url('../data/Neat-Chalk.ttf') format('woff');
     font-weight: normal;
     font-style: normal;
 }
@@ -30,7 +30,7 @@ body {
     height: 100vh;
     margin: 0;
     background-color: #000;
-    background-image: url('../../../data/blackboard.webp');
+    background-image: url('../data/blackboard.webp');
     background-size: cover;
     background-position: center;
 }
@@ -86,7 +86,6 @@ body {
 .game-title span:nth-child(9) { --i: 9; }
 .game-title span:nth-child(10) { --i: 10; }
 .game-title span:nth-child(11) { --i: 11; }
-
 
 .login-container {
     display: flex;
