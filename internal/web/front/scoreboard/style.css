@@ -35,13 +35,13 @@ h1 {
 }
 
 .scoreboard {
-    max-height: 60vh;
-    margin-bottom: auto;
-    margin-top: auto;
-    display: flex;
-    justify-content: flex-end;
+    max-height: 60%;
     overflow-y: auto;
-    margin-right: 2vw;
+    position: absolute;
+    top: 50%;
+    right: 0%;
+    transform: translateY(-50%);
+    margin-right: 4vw;
 }
 
 table {
@@ -59,24 +59,46 @@ th, td {
 .leaderboard {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-top: 2em;
+    position: absolute;
+    left: 20%;
+    bottom: 15%;
     white-space: pre;
+    font-size: 3em;
 }
 
-/* Style the scrollbar track */
+.player-name {
+    position: absolute;
+    font-size: 0.5em;
+}
+
+#first {
+    top: 2.5%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #FFD700;
+}
+
+#second {
+    top: 22.5%;
+    color: #C0C0C0;
+}
+
+#third {
+    top: 45%;
+    right: 0.01%;
+    color: #CD7F32;
+}
+
 .scoreboard::-webkit-scrollbar {
     width: 10px;
 }
 
-/* Style the scrollbar thumb */
 .scoreboard::-webkit-scrollbar-thumb {
     background-color: #ffffff;
     border-radius: 10px;
     border: 3px solid rgba(0, 0, 0, 0);
 }
 
-/* Style the scrollbar track */
 .scoreboard::-webkit-scrollbar-track {
     background: rgba(0, 0, 0, 0);
 }
