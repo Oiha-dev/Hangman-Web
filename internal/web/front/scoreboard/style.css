@@ -56,6 +56,14 @@ th, td {
     text-align: center;
 }
 
+th {
+    top: 0;
+    z-index: 1;
+    text-decoration: underline;
+    text-underline-offset: 1em;
+    text-decoration-thickness: 0.1em;
+}
+
 .leaderboard {
     display: flex;
     flex-direction: column;
@@ -73,7 +81,7 @@ th, td {
 
 #first {
     top: 2.5%;
-    left: 50%;
+    left: 52.5%;
     transform: translateX(-50%);
     color: #FFD700;
 }

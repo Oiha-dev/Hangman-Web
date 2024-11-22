@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hangman Web - Scoreboard</title>
+    <link rel="stylesheet" href="/static/scoreboard/style.css">
+</head>
+<body>
+<h1>
+    Scoreboard
+</h1>
+<div class="scoreboard">
+    <table>
+        <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th>Score</th>
+        </tr>
+        {{range $player := .Players}}
+            <tr>
+                <td>{{$player.Position}}</td>
+                <td>{{$player.Name}}</td>
+                <td>{{$player.Score}}</td>
+            </tr>
+        {{end}}
+    </table>
+</div>
+<div class="leaderboard">
+    {{with index .Players 0}}
+        <span class="player-name" id="first">{{.Name}}</span>
+    {{end}}
+    {{with index .Players 1}}
+        <span class="player-name" id="second">{{.Name}}</span>
+    {{end}}
+    {{with index .Players 2}}
+        <span class="player-name" id="third">{{.Name}}</span>
+    {{end}}
+    <span>      __</span>
+    <span> __|    |</span>
+    <span>|         |__</span>
+    <span>|              |</span>
+    <span>-----------</span>
+</div>
+</body>
+</html>

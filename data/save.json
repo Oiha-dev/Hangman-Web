@@ -1,0 +1,64 @@
+{
+  "saves": [
+    {
+      "username": "Oiha",
+      "current_word": "python",
+      "tested_letters": ["p", "y", "t", "h", "o", "n"]
+    },
+    {
+      "username": "Oiha",
+      "current_word": "hangman",
+      "tested_letters": ["h", "a", "n"]
+    },
+    {
+      "username": "Entys",
+      "current_word": "coding",
+      "tested_letters": ["c", "o", "d", "i"]
+    },
+    {
+      "username": "Lucas Astley",
+      "current_word": "program",
+      "tested_letters": ["p", "r", "o", "g"]
+    },
+    {
+      "username": "Lucas Astley",
+      "current_word": "developer",
+      "tested_letters": ["d", "e", "v"]
+    },
+    {
+      "username": "WWWW",
+      "current_word": "computer",
+      "tested_letters": ["c", "o", "m", "p"]
+    },
+    {
+      "username": "WWWW",
+      "current_word": "architecture",
+      "tested_letters": ["a", "r", "c", "h"]
+    },
+    {
+      "username": "Zeteox",
+      "current_word": "network",
+      "tested_letters": ["n", "e", "t", "w", "o"]
+    },
+    {
+      "username": "Zeteox",
+      "current_word": "hardware",
+      "tested_letters": ["h", "a", "r"]
+    },
+    {
+      "username": "Lxna",
+      "current_word": "keyboard",
+      "tested_letters": ["k", "e", "y", "b"]
+    },
+    {
+      "username": "Lxna",
+      "current_word": "mouse",
+      "tested_letters": ["m", "o", "u"]
+    },
+    {
+      "username": "Devex",
+      "current_word": "",
+      "tested_letters": []
+    }
+  ]
+}

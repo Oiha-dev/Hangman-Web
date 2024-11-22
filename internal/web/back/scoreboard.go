@@ -1,45 +1,78 @@
 package back
 
 import (
+	"encoding/json"
 	"fmt"
-	"html/template"
+	"hangman-web/pkg/utils"
+	"io/ioutil"
 	"net/http"
+	"os"
+	"sort"
 )
 
-func home(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Welcome to the Hangman Game!")
-	w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
-	w.Header().Set("Pragma", "no-cache")
-	w.Header().Set("Expires", "0")
-}
-
 func scoreboard(w http.ResponseWriter, r *http.Request) {
-	renderTemplate(w, "scoreboard")
-}
-
-func renderTemplate(w http.ResponseWriter, tmpl string) {
-	t, err := template.ParseFiles("internal/web/front/" + tmpl + "/index.html")
+	jsonFile, err := os.Open("data/save.json")
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		fmt.Println("Failed to open JSON file:", err)
 		return
 	}
-	t.Execute(w, nil)
-}
+	defer jsonFile.Close()
 
-func RouteScoreboard() {
-	http.HandleFunc("/", home)
-	http.HandleFunc("/scoreboard", scoreboard)
+	byteValue, err := ioutil.ReadAll(jsonFile)
+	if err != nil {
+		fmt.Println("Failed to read JSON file:", err)
+		return
+	}
 
-	// Serve static files
-	fs := http.FileServer(http.Dir("internal/web/front/scoreboard"))
-	http.Handle("/static/", http.StripPrefix("/static/", fs))
+	var saves utils.Saves
+	err = json.Unmarshal(byteValue, &saves)
+	if err != nil {
+		fmt.Println("Failed to unmarshal JSON data:", err)
+		return
+	}
 
-	// Serve font and image files
-	dataFs := http.FileServer(http.Dir("data"))
-	http.Handle("/data/", http.StripPrefix("/data/", dataFs))
+	var scoreboard utils.Scoreboard
 
-	fmt.Println("Server is running on port 8080")
-	fmt.Println("(http://localhost:8080/scoreboard) to view the scoreboard")
+	// Calculate scores first
+	for _, save := range saves.Saves {
+		found := false
+		for i, player := range scoreboard.Players {
+			if player.Name == save.Username {
+				score := scoreboard.Players[i].Score
+				for _, letter := range save.TestedLetters {
+					if utils.Contains(save.CurrentWord, letter) {
+						score++
+					}
+				}
+				scoreboard.Players[i].Score = score
+				found = true
+				break
+			}
+		}
+		if !found {
+			score := 0
+			for _, letter := range save.TestedLetters {
+				if utils.Contains(save.CurrentWord, letter) {
+					score++
+				}
+			}
+			scoreboard.Players = append(scoreboard.Players, utils.Player{
+				Name:     save.Username,
+				Score:    score,
+				Position: 1, // Default position, will be updated next
+			})
+		}
+	}
 
-	http.ListenAndServe(":8080", nil)
+	// Sort players by score (highest to lowest)
+	sort.Slice(scoreboard.Players, func(i, j int) bool {
+		return scoreboard.Players[i].Score > scoreboard.Players[j].Score
+	})
+
+	// Assign positions (1-based)
+	for i := range scoreboard.Players {
+		scoreboard.Players[i].Position = i + 1
+	}
+
+	renderTemplate(w, "scoreboard/index", scoreboard)
 }
