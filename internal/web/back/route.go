@@ -6,14 +6,14 @@ import (
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
-	RenderTemplate(w, "login/index")
+	renderTemplate(w, "login/index", nil)
 }
 
-func RenderTemplate(w http.ResponseWriter, tmpl string) {
-	t, err := template.ParseFiles("internal/web/front/" + tmpl + ".html")
+func renderTemplate(w http.ResponseWriter, tmpl string, data interface{}) {
+	t, err := template.ParseFiles("internal/web/front/" + tmpl + ".gohtml")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	t.Execute(w, nil)
+	t.Execute(w, data)
 }

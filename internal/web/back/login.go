@@ -9,7 +9,7 @@ func LoginSubmit(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		name := r.FormValue("name")
 		data := map[string]string{"Name": name}
-		t, err := template.ParseFiles("internal/web/front/login/index.html")
+		t, err := template.ParseFiles("internal/web/front/login/index.gohtml")
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
