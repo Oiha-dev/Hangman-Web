@@ -5,6 +5,10 @@ import (
 	"text/template"
 )
 
+func Index(w http.ResponseWriter, r *http.Request) {
+	renderTemplate(w, "login/index", nil)
+}
+
 func renderTemplate(w http.ResponseWriter, tmpl string, data interface{}) {
 	t, err := template.ParseFiles("internal/web/front/" + tmpl + ".gohtml")
 	if err != nil {

@@ -1,0 +1,140 @@
+@font-face {
+    font-family: 'FeltPen';
+    src: url('/data/Dker-FeltPen.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Chalk';
+    src: url('/data/Neat-Chalk.ttf') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: Chalk, sans-serif;
+}
+
+:root {
+    --initial-rotate: 0deg;
+    --rotation-direction: 1;
+    --random-delay: 0s;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #000;
+    background-image: url('/data/blackboard.webp');
+    background-size: cover;
+    background-position: center;
+}
+
+@keyframes titleAnimation {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) rotate(var(--initial-rotate));
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2) rotate(var(--initial-rotate));
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(var(--initial-rotate));
+    }
+}
+
+@keyframes letterRotate {
+    0%, 100% {
+        transform: rotate(calc(var(--initial-rotate) * 1deg));
+    }
+    50% {
+        transform: rotate(calc(var(--initial-rotate) + var(--rotation-direction) * 3deg));
+    }
+}
+
+.game-title {
+    font-size: 4rem;
+    color: #fff;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.game-title span {
+    opacity: 0;
+    display: inline-block;
+    animation: titleAnimation 0.4s forwards, letterRotate 2s infinite;
+    animation-delay: calc(0.05s * var(--i)), var(--random-delay);
+    animation-timing-function: ease-in-out;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    width: 500px;
+    box-sizing: border-box;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #343434;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-sizing: border-box;
+    font-size: 1.3rem;
+}
+
+.login-container button:hover {
+    background-color: #3b3b3b;
+}
+
+@media (max-width: 480px) {
+    .game-title {
+        font-size: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .game-title span:nth-child(8) {
+        flex-basis: 100%;
+        height: 0;
+    }
+
+    .login-container {
+        width: 100%;
+        padding: 0.5rem;
+    }
+
+    .login-container input, .login-container button {
+        font-size: 0.9rem;
+        padding: 6px;
+    }
+}
