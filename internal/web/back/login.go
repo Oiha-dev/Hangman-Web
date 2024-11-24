@@ -2,19 +2,19 @@ package back
 
 import (
 	"net/http"
-	"text/template"
+	"time"
 )
 
 func LoginSubmit(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		name := r.FormValue("name")
-		data := map[string]string{"Name": name}
-		t, err := template.ParseFiles("internal/web/front/login/index.gohtml")
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		t.Execute(w, data)
+		http.SetCookie(w, &http.Cookie{
+			Name:    "playerName",
+			Value:   name,
+			Path:    "/",
+			Expires: time.Now().Add(24 * time.Hour),
+		})
+		http.Redirect(w, r, "/game", http.StatusSeeOther)
 	} else {
 		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
 	}
