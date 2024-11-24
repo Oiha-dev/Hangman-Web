@@ -47,13 +47,15 @@ h1 {
 table {
     border-collapse: collapse;
     width: 100%;
-    max-width: 25em;
+    max-width: 20em;
     font-size: 1.5em;
+    margin: 0 auto;
 }
 
 th, td {
     padding: 0.5em;
     text-align: center;
+    width: 33.33%;
 }
 
 th {
@@ -109,4 +111,113 @@ th {
 
 .scoreboard::-webkit-scrollbar-track {
     background: rgba(0, 0, 0, 0);
+}
+
+/* Responsive styles */
+@media (max-width: 1350px) {
+    h1 {
+        font-size: 3em;
+    }
+
+    .scoreboard {
+        margin-right: 2vw;
+    }
+
+    table {
+        font-size: 1.2em;
+    }
+
+    .leaderboard {
+        font-size: 2.5em;
+    }
+}
+
+@media (max-width: 1050px) {
+    h1 {
+        font-size: 2.5em;
+    }
+
+    .scoreboard {
+        margin-right: 1vw;
+    }
+
+    table {
+        font-size: 1em;
+        max-width: 18em;
+    }
+
+    .leaderboard {
+        font-size: 2em;
+    }
+
+    .player-name {
+        font-size: 0.4em;
+    }
+}
+
+@media (max-width: 900px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    .scoreboard {
+        margin-right: 0.5vw;
+    }
+
+    table {
+        font-size: 0.8em;
+        max-width: 16em;
+    }
+
+    .leaderboard {
+        font-size: 1.5em;
+    }
+
+    .player-name {
+        font-size: 0.3em;
+    }
+}
+
+@media only screen and (hover: none) and (pointer: coarse) {
+    h1 {
+        position: absolute;
+        top: 3%;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 4em;
+    }
+
+    .scoreboard {
+        position: absolute;
+        top: 70%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin-right: 0;
+        width: 90%;
+        font-size: 1.5em;
+        height: 40%;
+    }
+
+    table {
+        width: 100%;
+        max-width: none;
+    }
+
+    .leaderboard {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 4em;
+    }
+
+    #second {
+        top: 15%;
+    }
+
+    #third {
+        top: 26%;
+        right: 0;
+    }
+
 }

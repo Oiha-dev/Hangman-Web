@@ -7,7 +7,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
-	"sort"
 )
 
 func scoreboard(w http.ResponseWriter, r *http.Request) {
@@ -16,6 +15,7 @@ func scoreboard(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Failed to open JSON file:", err)
 		return
 	}
+
 	defer jsonFile.Close()
 
 	byteValue, err := ioutil.ReadAll(jsonFile)
@@ -31,20 +31,19 @@ func scoreboard(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var scoreboard utils.Scoreboard
+	var scoreboardPlayer utils.Scoreboard
 
-	// Calculate scores first
 	for _, save := range saves.Saves {
 		found := false
-		for i, player := range scoreboard.Players {
+		for i, player := range scoreboardPlayer.Players {
 			if player.Name == save.Username {
-				score := scoreboard.Players[i].Score
+				score := scoreboardPlayer.Players[i].Score
 				for _, letter := range save.TestedLetters {
 					if utils.Contains(save.CurrentWord, letter) {
 						score++
 					}
 				}
-				scoreboard.Players[i].Score = score
+				scoreboardPlayer.Players[i].Score = score
 				found = true
 				break
 			}
@@ -56,23 +55,19 @@ func scoreboard(w http.ResponseWriter, r *http.Request) {
 					score++
 				}
 			}
-			scoreboard.Players = append(scoreboard.Players, utils.Player{
+			scoreboardPlayer.Players = append(scoreboardPlayer.Players, utils.Player{
 				Name:     save.Username,
 				Score:    score,
-				Position: 1, // Default position, will be updated next
+				Position: 1,
 			})
 		}
 	}
 
-	// Sort players by score (highest to lowest)
-	sort.Slice(scoreboard.Players, func(i, j int) bool {
-		return scoreboard.Players[i].Score > scoreboard.Players[j].Score
-	})
+	utils.SortPlayersByScore(scoreboardPlayer.Players)
 
-	// Assign positions (1-based)
-	for i := range scoreboard.Players {
-		scoreboard.Players[i].Position = i + 1
+	for i := range scoreboardPlayer.Players {
+		scoreboardPlayer.Players[i].Position = i + 1
 	}
 
-	renderTemplate(w, "scoreboard/index", scoreboard)
+	renderTemplate(w, "scoreboard/index", scoreboardPlayer)
 }
