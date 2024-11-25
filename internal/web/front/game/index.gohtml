@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman Web - Game</title>
+    <link rel="stylesheet" href="/static/game/style.css">
+</head>
+<body>
+
+<div class="title">
+    <h1>Hangman Game</h1>
+    <p>Good luck {{.Value}} !</p>
+</div>
+
+<div class="game-container">
+    <div class="left-side">
+    <pre id="hangman-ascii">
+        {{.AsciiArt}}
+    </pre>
+    </div>
+    <div class="right-side">
+        <div class="top-right">
+            H _ L L _
+        </div>
+        <div class="bottom-right">
+            <button>A</button>
+            <button>Z</button>
+            <button>E</button>
+            <button>R</button>
+            <button>T</button>
+            <button>Y</button>
+            <button>U</button>
+            <button>I</button>
+            <button>O</button>
+            <button>P</button>
+            <button>Q</button>
+            <button>S</button>
+            <button>D</button>
+            <button>F</button>
+            <button>G</button>
+            <button>H</button>
+            <button>J</button>
+            <button>K</button>
+            <button>L</button>
+            <button>M</button>
+            <button>W</button>
+            <button>X</button>
+            <button>C</button>
+            <button>V</button>
+            <button>B</button>
+            <button>N</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

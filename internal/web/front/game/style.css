@@ -1,0 +1,104 @@
+@font-face {
+    font-family: 'FeltPen';
+    src: url('/data/Dker-FeltPen.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Chalk';
+    src: url('/data/Neat-Chalk.ttf') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: Chalk, sans-serif;
+}
+
+:root {
+    --initial-rotate: 0deg;
+    --rotation-direction: 1;
+    --random-delay: 0s;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #000;
+    background-image: url('/data/blackboard.webp');
+    background-size: cover;
+    background-position: center;
+}
+
+.title {
+    color: #fff;
+    position: absolute;
+    top: 0;
+    text-align: center;
+}
+
+.game-container {
+    display: flex;
+    width: 80%;
+    height: 70%;
+    position: relative;
+    top: 6vh;
+    color: #fff;
+}
+
+.left-side {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+#hangman-ascii {
+    white-space: pre;
+}
+
+.right-side {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.top-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+}
+
+.bottom-right {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(10, 3em);
+    grid-template-rows: repeat(3, 3em);
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.bottom-right button {
+    width: 40px;
+    height: 40px;
+    background: none;
+    color: #fff;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.bottom-right .row-3 {
+    grid-column: span 1;
+}
