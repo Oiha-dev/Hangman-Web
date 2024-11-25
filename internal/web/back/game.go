@@ -1,7 +1,7 @@
 package back
 
 import (
-	"hangman-web/internal/game"
+	"hangman-web/pkg/utils"
 	"net/http"
 )
 
@@ -12,13 +12,7 @@ func gamePage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = game.InitPositions()
-	if err != nil {
-		http.Error(w, "Error initializing positions", http.StatusInternalServerError)
-		return
-	}
-
-	asciiArt := game.GetNextPosition()
+	asciiArt := utils.GetAsciiArt(9)
 
 	data := map[string]string{
 		"Value":    cookie.Value,
