@@ -1,13 +1,6 @@
 package utils
 
-func Contains(word string, letter string) bool {
-	for _, char := range word {
-		if string(char) == letter {
-			return true
-		}
-	}
-	return false
-}
+import "hangman-web/pkg/hangman-classic/structure"
 
 func SortPlayersByScore(players []Player) {
 	for i := 0; i < len(players); i++ {
@@ -17,4 +10,12 @@ func SortPlayersByScore(players []Player) {
 			}
 		}
 	}
+}
+
+func isFinished(data structure.HangManData) bool {
+	return data.Word == data.ToFind || data.Attempts == 0
+}
+
+func isWinned(data structure.HangManData) bool {
+	return data.Word == data.ToFind
 }

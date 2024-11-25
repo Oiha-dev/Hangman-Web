@@ -3,6 +3,7 @@ package back
 import (
 	"encoding/json"
 	"fmt"
+	classic_utils "hangman-web/pkg/hangman-classic/pkg/utils"
 	"hangman-web/pkg/utils"
 	"io/ioutil"
 	"net/http"
@@ -39,7 +40,7 @@ func scoreboard(w http.ResponseWriter, r *http.Request) {
 			if player.Name == save.Username {
 				score := scoreboardPlayer.Players[i].Score
 				for _, letter := range save.TestedLetters {
-					if utils.Contains(save.CurrentWord, letter) {
+					if classic_utils.IsLetterInWord(save.CurrentWord, letter) {
 						score++
 					}
 				}
@@ -51,7 +52,7 @@ func scoreboard(w http.ResponseWriter, r *http.Request) {
 		if !found {
 			score := 0
 			for _, letter := range save.TestedLetters {
-				if utils.Contains(save.CurrentWord, letter) {
+				if classic_utils.IsLetterInWord(save.CurrentWord, letter) {
 					score++
 				}
 			}
