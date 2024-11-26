@@ -9,9 +9,10 @@ func StartServer() {
 	fmt.Println("(http://localhost:8080) - Server started on port 8080")
 	fmt.Println("Press Ctrl+C to stop the server")
 
-	http.HandleFunc("/", Index)
+	http.HandleFunc("/", index)
 	http.HandleFunc("/submit", LoginSubmit)
 	http.HandleFunc("/scoreboard", scoreboard)
+	http.HandleFunc("/end", endScreen)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("internal/web/front"))))
 	http.Handle("/data/", http.StripPrefix("/data/", http.FileServer(http.Dir("data"))))
 

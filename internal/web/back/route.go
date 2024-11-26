@@ -5,8 +5,12 @@ import (
 	"text/template"
 )
 
-func Index(w http.ResponseWriter, r *http.Request) {
+func index(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "login/index", nil)
+}
+
+func endScreen(w http.ResponseWriter, r *http.Request) {
+	renderTemplate(w, "endScreen/index", nil)
 }
 
 func renderTemplate(w http.ResponseWriter, tmpl string, data interface{}) {
