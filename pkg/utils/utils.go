@@ -1,6 +1,10 @@
 package utils
 
-import "hangman-web/pkg/hangman-classic/structure"
+import (
+	"bufio"
+	"hangman-web/pkg/hangman-classic/structure"
+	"os"
+)
 
 func SortPlayersByScore(players []Player) {
 	for i := 0; i < len(players); i++ {
@@ -10,6 +14,28 @@ func SortPlayersByScore(players []Player) {
 			}
 		}
 	}
+}
+
+func GetAsciiArt(position int) string {
+	file, err := os.Open("data/hangman.txt")
+	if err != nil {
+		return "file not found"
+	}
+	defer file.Close()
+
+	asciiArt := "\n"
+	scanner := bufio.NewScanner(file)
+	lineNumber := 1
+	for scanner.Scan() {
+		if lineNumber >= position*7-6 && lineNumber <= position*7 {
+			asciiArt += scanner.Text() + "\n"
+		}
+		if lineNumber > position*7 {
+			break
+		}
+		lineNumber++
+	}
+	return asciiArt
 }
 
 func isFinished(data structure.HangManData) bool {
