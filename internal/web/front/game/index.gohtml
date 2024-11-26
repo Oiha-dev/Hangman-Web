@@ -22,39 +22,16 @@
     </div>
     <div class="right-side">
         <div class="top-right">
-            H _ L L _
+            {{.Word}}
         </div>
         <div class="guess-word">
             <input type="text" id="full-word-guess" placeholder="Guess the full word">
             <button onclick="submitGuess()">Submit</button>
         </div>
         <div class="bottom-right">
-            <button>A</button>
-            <button>Z</button>
-            <button>E</button>
-            <button>R</button>
-            <button>T</button>
-            <button>Y</button>
-            <button>U</button>
-            <button>I</button>
-            <button>O</button>
-            <button>P</button>
-            <button>Q</button>
-            <button>S</button>
-            <button>D</button>
-            <button>F</button>
-            <button>G</button>
-            <button>H</button>
-            <button>J</button>
-            <button>K</button>
-            <button>L</button>
-            <button>M</button>
-            <button>W</button>
-            <button>X</button>
-            <button>C</button>
-            <button>V</button>
-            <button>B</button>
-            <button>N</button>
+            {{range $letter := (split "ABCDEFGHIJKLMNOPQRSTUVWXYZ" "")}}
+                <button onclick="window.location.href='/guess?letter={{$letter}}'">{{$letter}}</button>
+            {{end}}
         </div>
     </div>
 </div>

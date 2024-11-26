@@ -13,6 +13,7 @@ func StartServer() {
 	http.HandleFunc("/submit", LoginSubmit)
 	http.HandleFunc("/scoreboard", scoreboard)
 	http.HandleFunc("/game", gamePage)
+	http.HandleFunc("/guess", guessLetter)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("internal/web/front"))))
 	http.Handle("/data/", http.StripPrefix("/data/", http.FileServer(http.Dir("data"))))
 
