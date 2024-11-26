@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"hangman-web/pkg/hangman-classic/structure"
 	"os"
+	"strings"
 )
 
 func SortPlayersByScore(players []Player) {
@@ -38,10 +39,14 @@ func GetAsciiArt(position int) string {
 	return asciiArt
 }
 
-func isFinished(data structure.HangManData) bool {
+func IsFinished(data structure.HangManData) bool {
 	return data.Word == data.ToFind || data.Attempts == 0
 }
 
-func isWinned(data structure.HangManData) bool {
+func IsWinned(data structure.HangManData) bool {
 	return data.Word == data.ToFind
+}
+
+func Split(s, sep string) []string {
+	return strings.Split(s, sep)
 }

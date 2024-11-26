@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hangman Web - Game</title>
     <link rel="stylesheet" href="/static/game/style.css">
-    <script src="/static/game/script.js"></script>
 </head>
 <body>
 
@@ -25,12 +24,18 @@
             {{.Word}}
         </div>
         <div class="guess-word">
-            <input type="text" id="full-word-guess" placeholder="Guess the full word">
-            <button onclick="submitGuess()">Submit</button>
+            <form action="/fullword" method="GET">
+                <input type="text" name="word" id="full-word-guess" placeholder="Guess the full word">
+                <button type="submit">Submit</button>
+            </form>
         </div>
         <div class="bottom-right">
-            {{range $letter := (split "ABCDEFGHIJKLMNOPQRSTUVWXYZ" "")}}
-                <button onclick="window.location.href='/guess?letter={{$letter}}'">{{$letter}}</button>
+            {{range $letter := split "ABCDEFGHIJKLMNOPQRSTUVWXYZ" ""}}
+                {{if contains $.GuessedLetters $letter}}
+                    <button class="guessed" disabled>{{$letter}}</button>
+                {{else}}
+                    <button onclick="location.href='/guess?letter={{$letter}}'">{{$letter}}</button>
+                {{end}}
             {{end}}
         </div>
     </div>

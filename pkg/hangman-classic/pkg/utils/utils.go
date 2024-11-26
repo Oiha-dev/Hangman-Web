@@ -51,14 +51,14 @@ func UpdateWord(Jose *structure.HangManData, guessLetter string) {
 		This function is used to update the word with the guessed letter
 	*/
 	newWord := ""
-	for i, l := range Jose.ToFind {
-		if string(l) == guessLetter {
-			newWord += string(l)
+	for i := 0; i < len(Jose.Word); i++ {
+		if string(Jose.Word[i]) == guessLetter {
+			newWord += guessLetter
 		} else {
-			newWord += string(Jose.Word[i])
+			newWord += string(Jose.ToFind[i])
 		}
 	}
-	Jose.Word = newWord
+	Jose.ToFind = newWord
 }
 
 func ContainsStr(letters []string, s string) bool {

@@ -8,7 +8,6 @@ import (
 	"hangman-web/pkg/hangman-classic/structure"
 	"hangman-web/pkg/utils"
 	"html/template"
-	"log"
 	"net/http"
 	"net/url"
 	"strings"
@@ -29,11 +28,12 @@ func gamePage(w http.ResponseWriter, r *http.Request) {
 		Word:           randomWord,
 		ToFind:         classic_utils.FirstPrintWord(randomWord),
 		Attempts:       9,
-		HangmanState:   1,
+		HangmanState:   0,
 		GuessedLetters: []string{},
+		Score:          0,
+		IsWinned:       false,
 	}
 
-	// Store the initial game state in a cookie
 	gameDataJSON, err := json.Marshal(jose)
 	if err != nil {
 		http.Error(w, "Error encoding game data", http.StatusInternalServerError)
@@ -52,7 +52,8 @@ func gamePage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	funcMap := template.FuncMap{
-		"split": split,
+		"split":    utils.Split,
+		"contains": classic_utils.ContainsStr,
 	}
 
 	tmpl, err := template.New("index.gohtml").Funcs(funcMap).ParseFiles("internal/web/front/game/index.gohtml")
@@ -62,19 +63,15 @@ func gamePage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	err = tmpl.Execute(w, data)
-	if err != nil {
-		http.Error(w, "Error executing template", http.StatusInternalServerError)
-	}
 }
 
-func guessLetter(w http.ResponseWriter, r *http.Request) {
+func handleGuess(w http.ResponseWriter, r *http.Request) {
 	cookie, err := r.Cookie("playerName")
 	if err != nil {
 		http.Error(w, "Player not found", http.StatusNotFound)
 		return
 	}
 
-	// Retrieve the game state from the cookie
 	gameDataCookie, err := r.Cookie("gameData")
 	if err != nil {
 		http.Error(w, "Game data not found", http.StatusInternalServerError)
@@ -87,27 +84,48 @@ func guessLetter(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var jose structure.HangManData
-	err = json.Unmarshal([]byte(gameDataValue), &jose)
+	r.ParseForm()
+
+	letterGuessed := strings.ToLower(r.URL.Query().Get("letter"))
+	fullWordGuessed := strings.ToLower(r.URL.Query().Get("word"))
+
+	var newJose structure.HangManData
+	err = json.Unmarshal([]byte(gameDataValue), &newJose)
 	if err != nil {
-		log.Printf("Error decoding game data: %v", err)
-		log.Printf("Game data cookie value: %s", gameDataValue)
 		http.Error(w, "Error decoding game data", http.StatusInternalServerError)
 		return
 	}
 
-	r.ParseForm()
-	guessLetter := r.FormValue("guessLetter")
-
-	if classic_utils.IsLetterInWord(jose.ToFind, guessLetter) {
-		classic_utils.UpdateWord(&jose, guessLetter)
-	} else {
-		jose.Attempts--
-		jose.HangmanState++
+	if letterGuessed != "" {
+		game.RoundLogic(&newJose, letterGuessed)
+	} else if fullWordGuessed != "" {
+		if strings.ToLower(newJose.Word) == fullWordGuessed {
+			newJose.IsWinned = true
+			newJose.ToFind = newJose.Word
+		} else {
+			newJose.HangmanState += 2
+		}
 	}
 
-	// Update the game state in the cookie
-	gameDataJSON, err := json.Marshal(jose)
+	if utils.IsFinished(newJose) {
+		newJose.IsWinned = utils.IsWinned(newJose)
+
+		gameDataJSON, err := json.Marshal(newJose)
+		if err != nil {
+			http.Error(w, "Error encoding game data", http.StatusInternalServerError)
+			return
+		}
+		http.SetCookie(w, &http.Cookie{
+			Name:  "gameData",
+			Value: url.QueryEscape(string(gameDataJSON)),
+			Path:  "/",
+		})
+
+		http.Redirect(w, r, "/end", http.StatusSeeOther)
+		return
+	}
+
+	gameDataJSON, err := json.Marshal(newJose)
 	if err != nil {
 		http.Error(w, "Error encoding game data", http.StatusInternalServerError)
 		return
@@ -119,13 +137,15 @@ func guessLetter(w http.ResponseWriter, r *http.Request) {
 	})
 
 	data := map[string]interface{}{
-		"Value":    cookie.Value,
-		"AsciiArt": utils.GetAsciiArt(jose.HangmanState),
-		"Word":     jose.Word,
+		"Value":          cookie.Value,
+		"AsciiArt":       utils.GetAsciiArt(newJose.HangmanState),
+		"Word":           newJose.ToFind,
+		"GuessedLetters": newJose.GuessedLetters,
 	}
 
 	funcMap := template.FuncMap{
-		"split": split,
+		"split":    utils.Split,
+		"contains": classic_utils.ContainsStr,
 	}
 
 	tmpl, err := template.New("index.gohtml").Funcs(funcMap).ParseFiles("internal/web/front/game/index.gohtml")
@@ -140,6 +160,10 @@ func guessLetter(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func split(s, sep string) []string {
-	return strings.Split(s, sep)
+func GuessLetter(w http.ResponseWriter, r *http.Request) {
+	handleGuess(w, r)
+}
+
+func FullWordGuess(w http.ResponseWriter, r *http.Request) {
+	handleGuess(w, r)
 }

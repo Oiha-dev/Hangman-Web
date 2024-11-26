@@ -3,8 +3,11 @@ package game
 import (
 	"bufio"
 	"fmt"
+	classic_utils "hangman-web/pkg/hangman-classic/pkg/utils"
+	"hangman-web/pkg/hangman-classic/structure"
 	"math/rand"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -40,4 +43,18 @@ func GetRandomWord(words []string) string {
 	*/
 	rand.Seed(time.Now().UnixNano())
 	return words[rand.Intn(len(words))]
+}
+
+func RoundLogic(Jose *structure.HangManData, guessLetter string) {
+	/*
+		This function is used to update Jose with the guessed letter
+	*/
+	Jose.GuessedLetters = append(Jose.GuessedLetters, strings.ToUpper(guessLetter))
+	if !classic_utils.IsLetterInWord(Jose.Word, guessLetter) {
+		Jose.HangmanState++
+		Jose.Attempts--
+	} else {
+		classic_utils.UpdateWord(Jose, guessLetter)
+		Jose.Score++
+	}
 }
