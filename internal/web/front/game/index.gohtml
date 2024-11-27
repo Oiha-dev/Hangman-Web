@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman Web - Game</title>
+    <link rel="stylesheet" href="/static/game/style.css">
+</head>
+<body>
+
+<div class="title">
+    <h1>Hangman Game</h1>
+    <p>Good luck {{.Value}} !</p>
+</div>
+
+<div class="game-container">
+    <div class="left-side">
+    <pre id="hangman-ascii">
+        {{.AsciiArt}}
+    </pre>
+    </div>
+    <div class="right-side">
+        <div class="top-right">
+            {{.Word}}
+        </div>
+        <div class="guess-word">
+            <form action="/fullword" method="POST">
+                <input type="text" name="fullWord" id="full-word-guess" placeholder="Guess the full word">
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="bottom-right">
+            {{range $letter := split "ABCDEFGHIJKLMNOPQRSTUVWXYZ" ""}}
+                {{if contains $.GuessedLetters $letter}}
+                    <button class="guessed" disabled>{{$letter}}</button>
+                {{else}}
+                    <form action="/guess" method="POST">
+                        <input type="hidden" name="letter" value="{{$letter}}">
+                        <button type="submit">{{$letter}}</button>
+                    </form>
+                {{end}}
+            {{end}}
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
