@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-func LoginSubmit(w http.ResponseWriter, r *http.Request) {
+func loginSubmit(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		name := r.FormValue("name")
 		http.SetCookie(w, &http.Cookie{

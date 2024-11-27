@@ -172,10 +172,10 @@ func handleGuess(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func GuessLetter(w http.ResponseWriter, r *http.Request) {
+func guessLetter(w http.ResponseWriter, r *http.Request) {
 	handleGuess(w, r)
 }
 
-func FullWordGuess(w http.ResponseWriter, r *http.Request) {
+func fullWordGuess(w http.ResponseWriter, r *http.Request) {
 	handleGuess(w, r)
 }
