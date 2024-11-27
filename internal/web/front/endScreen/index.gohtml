@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman Web - Login</title>
+    <link rel="stylesheet" href="/static/endScreen/style.css">
+</head>
+<body>
+    <div class="end-title">
+        <h1>
+        {{ if .Win }}
+            You Win!
+        {{ else }}
+            You Lose!
+        {{ end}}
+        </h1>
+    </div>
+    <div class="end-container">
+        <p>The word was: {{ .Word }}</p>
+        <p>Score: {{ .Score }}</p>
+        <form method="POST" action="/game">
+            <button type="submit">Play Again</button>
+        </form>
+    </div>
+</body>
+</html>

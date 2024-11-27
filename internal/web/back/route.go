@@ -5,7 +5,7 @@ import (
 	"text/template"
 )
 
-func Index(w http.ResponseWriter, r *http.Request) {
+func index(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "login/index", nil)
 }
 
