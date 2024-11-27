@@ -91,6 +91,17 @@ body {
     text-align: center;
 }
 
+.login-container select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1.3rem;
+    text-align: center;
+}
+
 .login-container button {
     width: 100%;
     padding: 10px;
@@ -126,7 +137,7 @@ body {
         padding: 0.5rem;
     }
 
-    .login-container input, .login-container button {
+    .login-container input, .login-container button, .login-container select {
         font-size: 0.9rem;
         padding: 6px;
     }

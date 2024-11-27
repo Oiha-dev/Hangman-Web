@@ -11,38 +11,55 @@ import (
 	"time"
 )
 
-func ImportWords() []string {
+func ImportWords() ([]string, []string, []string) {
 	/*
 		This function is used to import the words stored in the file data/words.txt
-		Return: a slice of strings containing the words
+		Return: three slices of strings containing the words for easy, medium, and hard difficulties
 	*/
 	file, err := os.Open("data/words.txt")
 	if err != nil {
 		fmt.Errorf("Error: ", err)
-		return nil
+		return nil, nil, nil
 	}
 	defer file.Close()
 
-	var words []string
+	var easyWords, mediumWords, hardWords []string
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		words = append(words, scanner.Text())
+		word := scanner.Text()
+		if len(word) < 6 {
+			easyWords = append(easyWords, word)
+		} else if len(word) < 10 {
+			mediumWords = append(mediumWords, word)
+		} else {
+			hardWords = append(hardWords, word)
+		}
 	}
 
 	if err := scanner.Err(); err != nil {
 		fmt.Errorf("Error: ", err)
 	}
 
-	return words
+	return easyWords, mediumWords, hardWords
 }
 
-func GetRandomWord(words []string) string {
+func GetRandomWord(easyWords, mediumWords, hardWords []string, difficulty string) string {
 	/*
-		This function is used to get a random word from the slice of words
-		Return: a string containing the word
+		This function is used to get a random word from the words slice based on the difficulty
+		Return: a random word based on the difficulty
 	*/
 	rand.Seed(time.Now().UnixNano())
-	return words[rand.Intn(len(words))]
+	switch difficulty {
+	case "easy":
+		return easyWords[rand.Intn(len(easyWords))]
+	case "medium":
+		return mediumWords[rand.Intn(len(mediumWords))]
+	case "hard":
+		return hardWords[rand.Intn(len(hardWords))]
+	default:
+		fmt.Println("Invalid difficulty")
+		return ""
+	}
 }
 
 func RoundLogic(Jose *structure.HangManData, guessLetter string) {

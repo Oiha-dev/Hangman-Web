@@ -8,9 +8,16 @@ import (
 func LoginSubmit(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		name := r.FormValue("name")
+		difficulty := r.FormValue("difficulty")
 		http.SetCookie(w, &http.Cookie{
 			Name:    "playerName",
 			Value:   name,
+			Path:    "/",
+			Expires: time.Now().Add(24 * time.Hour),
+		})
+		http.SetCookie(w, &http.Cookie{
+			Name:    "difficulty",
+			Value:   difficulty,
 			Path:    "/",
 			Expires: time.Now().Add(24 * time.Hour),
 		})

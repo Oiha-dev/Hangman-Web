@@ -20,7 +20,14 @@ func gamePage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	randomWord := game.GetRandomWord(game.ImportWords())
+	difficultyCookie, err := r.Cookie("difficulty")
+	if err != nil {
+		http.Error(w, "Difficulty not found", http.StatusNotFound)
+		return
+	}
+
+	easyWords, mediumWords, hardWords := game.ImportWords()
+	randomWord := game.GetRandomWord(easyWords, mediumWords, hardWords, difficultyCookie.Value)
 
 	fmt.Println(cookie.Value, ":", randomWord)
 

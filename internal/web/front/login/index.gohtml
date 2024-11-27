@@ -25,7 +25,12 @@
 
 <div class="login-container">
     <form method="POST" action="/submit">
-        <input type="text" name="name" placeholder="Enter your name" required>
+        <input type="text" name="name" placeholder="Enter your name" required maxlength="12">
+        <select name="difficulty" required>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+        </select>
         <button type="submit">Start Game</button>
     </form>
 </div>
