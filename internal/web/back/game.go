@@ -22,7 +22,7 @@ func gamePage(w http.ResponseWriter, r *http.Request) {
 
 	randomWord := game.GetRandomWord(game.ImportWords())
 
-	fmt.Println(randomWord)
+	fmt.Println(cookie.Value, ":", randomWord)
 
 	jose := structure.HangManData{
 		Word:           randomWord,
@@ -30,6 +30,7 @@ func gamePage(w http.ResponseWriter, r *http.Request) {
 		Attempts:       9,
 		HangmanState:   0,
 		GuessedLetters: []string{},
+		GuessedWords:   []string{},
 		Score:          0,
 		IsWinned:       false,
 	}
@@ -86,8 +87,11 @@ func handleGuess(w http.ResponseWriter, r *http.Request) {
 
 	r.ParseForm()
 
-	letterGuessed := strings.ToLower(r.URL.Query().Get("letter"))
-	fullWordGuessed := strings.ToLower(r.URL.Query().Get("word"))
+	letterGuessed := strings.ToLower(r.FormValue("letter"))
+	if len(letterGuessed) > 1 {
+		letterGuessed = letterGuessed[:1]
+	}
+	fullWordGuessed := strings.ToLower(r.FormValue("fullWord"))
 
 	var newJose structure.HangManData
 	err = json.Unmarshal([]byte(gameDataValue), &newJose)
@@ -96,14 +100,21 @@ func handleGuess(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if letterGuessed != "" {
-		game.RoundLogic(&newJose, letterGuessed)
-	} else if fullWordGuessed != "" {
-		if strings.ToLower(newJose.Word) == fullWordGuessed {
-			newJose.IsWinned = true
-			newJose.ToFind = newJose.Word
-		} else {
-			newJose.HangmanState += 2
+	if !classic_utils.ContainsStr(newJose.GuessedLetters, strings.ToUpper(letterGuessed)) {
+		if letterGuessed != "" {
+			game.RoundLogic(&newJose, letterGuessed)
+		} else if fullWordGuessed != "" {
+			if !classic_utils.ContainsStr(newJose.GuessedWords, strings.ToUpper(fullWordGuessed)) {
+				newJose.GuessedWords = append(newJose.GuessedWords, strings.ToUpper(fullWordGuessed))
+				if strings.ToLower(newJose.Word) == fullWordGuessed {
+					newJose.IsWinned = true
+					newJose.ToFind = newJose.Word
+					newJose.Score += 2
+				} else {
+					newJose.HangmanState += 2
+					newJose.Attempts -= 2
+				}
+			}
 		}
 	}
 
@@ -141,6 +152,7 @@ func handleGuess(w http.ResponseWriter, r *http.Request) {
 		"AsciiArt":       utils.GetAsciiArt(newJose.HangmanState),
 		"Word":           newJose.ToFind,
 		"GuessedLetters": newJose.GuessedLetters,
+		"GuessedWords":   newJose.GuessedWords,
 	}
 
 	funcMap := template.FuncMap{

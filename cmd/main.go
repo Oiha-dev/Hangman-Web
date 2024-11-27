@@ -5,7 +5,5 @@ import (
 )
 
 func main() {
-	// word := game.GetRandomWord(game.ImportWords())
-	// fmt.Println(word, classic_utils.FirstPrintWord(word))
 	back.StartServer()
 }

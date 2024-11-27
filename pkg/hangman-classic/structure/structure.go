@@ -6,6 +6,7 @@ type HangManData struct {
 	Attempts       int      // Number of attempts left
 	HangmanState   int      // It can be the array where the positions parsed in "hangman.txt" are stored
 	GuessedLetters []string // Array of guessed letters
+	GuessedWords   []string // Array of guessed words
 	Score          int      // Score of the player
 	IsWinned       bool     // True if the player has won, false otherwise
 }
