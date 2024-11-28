@@ -114,12 +114,21 @@ func handleGuess(w http.ResponseWriter, r *http.Request) {
 			if !classic_utils.ContainsStr(newJose.GuessedWords, strings.ToUpper(fullWordGuessed)) {
 				newJose.GuessedWords = append(newJose.GuessedWords, strings.ToUpper(fullWordGuessed))
 				if strings.ToLower(newJose.Word) == fullWordGuessed {
+					if newJose.HangmanState == 0 {
+						newJose.Score += len(newJose.Word)
+					} else {
+						newJose.Score += 2
+					}
 					newJose.IsWinned = true
 					newJose.ToFind = newJose.Word
-					newJose.Score += 2
 				} else {
-					newJose.HangmanState += 2
-					newJose.Attempts -= 2
+					if newJose.HangmanState == 0 {
+						newJose.Score = 0
+						newJose.Attempts = 0
+					} else {
+						newJose.HangmanState += 2
+						newJose.Attempts -= 2
+					}
 				}
 			}
 		}
