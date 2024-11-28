@@ -1,0 +1,227 @@
+@font-face {
+    font-family: 'Chalk';
+    src: url('/data/Neat-Chalk.ttf') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: Chalk, sans-serif;
+    color: white;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    background-color: #000;
+    background-image: url('/data/blackboard.webp');
+    background-size: cover;
+    background-position: center;
+}
+
+.back-button {
+    position: absolute;
+    top: .5em;
+    right: 1em;
+    color: #fff;
+    cursor: pointer;
+}
+
+h1 {
+    font-size: 4em;
+    position: absolute;
+}
+
+.scoreboard {
+    max-height: 60%;
+    overflow-y: auto;
+    position: absolute;
+    top: 50%;
+    right: 0%;
+    transform: translateY(-50%);
+    margin-right: 4vw;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 20em;
+    font-size: 1.5em;
+    margin: 0 auto;
+}
+
+th, td {
+    padding: 0.5em;
+    text-align: center;
+    width: 33.33%;
+}
+
+th {
+    top: 0;
+    z-index: 1;
+    text-decoration: underline;
+    text-underline-offset: 1em;
+    text-decoration-thickness: 0.1em;
+}
+
+.leaderboard {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 15%;
+    bottom: 12%;
+    white-space: pre;
+    font-size: 3em;
+}
+
+.player-name {
+    position: absolute;
+    font-size: 0.5em;
+}
+
+#first {
+    top: 2.5%;
+    left: 52.5%;
+    transform: translateX(-50%);
+    color: #FFD700;
+}
+
+#second {
+    top: 22.5%;
+    color: #C0C0C0;
+}
+
+#third {
+    top: 45%;
+    right: 0.01%;
+    color: #CD7F32;
+}
+
+.scoreboard::-webkit-scrollbar {
+    width: 10px;
+}
+
+.scoreboard::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 3px solid rgba(0, 0, 0, 0);
+}
+
+.scoreboard::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0);
+}
+
+/* Responsive styles */
+@media (max-width: 1350px) {
+    h1 {
+        font-size: 3em;
+    }
+
+    .scoreboard {
+        margin-right: 2vw;
+    }
+
+    table {
+        font-size: 1.2em;
+    }
+
+    .leaderboard {
+        font-size: 2.5em;
+    }
+}
+
+@media (max-width: 1050px) {
+    h1 {
+        font-size: 2.5em;
+    }
+
+    .scoreboard {
+        margin-right: 1vw;
+    }
+
+    table {
+        font-size: 1em;
+        max-width: 18em;
+    }
+
+    .leaderboard {
+        font-size: 2em;
+    }
+
+    .player-name {
+        font-size: 0.4em;
+    }
+}
+
+@media (max-width: 900px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    .scoreboard {
+        margin-right: 0.5vw;
+    }
+
+    table {
+        font-size: 0.8em;
+        max-width: 16em;
+    }
+
+    .leaderboard {
+        font-size: 1.5em;
+    }
+
+    .player-name {
+        font-size: 0.3em;
+    }
+}
+
+@media only screen and (hover: none) and (pointer: coarse) {
+    .back-button {
+        display: none;
+    }
+
+    h1 {
+        position: absolute;
+        top: 3%;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 4em;
+    }
+
+    .scoreboard {
+        position: absolute;
+        top: 70%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin-right: 0;
+        width: 90%;
+        font-size: 1.5em;
+        height: 40%;
+    }
+
+    table {
+        width: 100%;
+        max-width: none;
+    }
+
+    .leaderboard {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 4em;
+    }
+
+    #second {
+        top: 15%;
+    }
+
+    #third {
+        top: 26%;
+        right: 0;
+    }
+
+}

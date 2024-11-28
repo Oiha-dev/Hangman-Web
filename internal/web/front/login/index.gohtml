@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman Web - Login</title>
+    <link rel="icon" href="/data/favicon.png">
+    <link rel="stylesheet" href="/static/login/style.css">
+    <script src="/static/login/script.js" defer></script>
+</head>
+<body>
+
+<div class="game-title">
+    <span style="--i: 1;">H</span>
+    <span style="--i: 2;">A</span>
+    <span style="--i: 3;">N</span>
+    <span style="--i: 4;">G</span>
+    <span style="--i: 5;">M</span>
+    <span style="--i: 6;">A</span>
+    <span style="--i: 7;">N</span>
+    <span style="--i: 8;">⠀</span>
+    <span style="--i: 9;">W</span>
+    <span style="--i: 10;">E</span>
+    <span style="--i: 11;">B</span>
+</div>
+
+<div class="login-container">
+    <form method="POST" action="/submit">
+        <input type="text" name="name" placeholder="Enter your name" required maxlength="12">
+        <select name="difficulty" required>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+        </select>
+        <button type="submit">Singleplayer</button>
+    </form>
+    <div class="multi-button">
+        <form method="POST" action="/waiting">
+            <button type="submit">Multiplayer</button>
+        </form>
+    </div>
+    <div class="dual-button">
+        <form method="POST" action="/scoreboard">
+            <button type="submit">Scoreboard</button>
+        </form>
+        <form method="POST" action="/history">
+            <button type="submit">History</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

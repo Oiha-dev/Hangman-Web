@@ -1,0 +1,57 @@
+@font-face {
+    font-family: 'Chalk';
+    src: url('/data/Neat-Chalk.ttf') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: Chalk, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #000;
+    background-image: url('/data/blackboard.webp');
+    background-size: cover;
+    background-position: center;
+}
+
+
+.end-title {
+    font-size: 2rem;
+    color: #fff;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.end-container{
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 1rem;
+    font-size: 1.5rem;
+}
+
+.end-container button {
+    background-color: #343434;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-sizing: border-box;
+    font-size: 1.3rem;
+}
+
+.end-container button:hover {
+    background-color: #3b3b3b;
+}
