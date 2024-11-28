@@ -28,6 +28,14 @@ body {
     background-position: center;
 }
 
+.back-button {
+    position: absolute;
+    top: .5em;
+    left: 1em;
+    color: #fff;
+    cursor: pointer;
+}
+
 .title {
     color: #fff;
     position: absolute;
@@ -138,6 +146,10 @@ body {
 }
 
 @media only screen and (max-width: 600px) {
+    .back-button {
+        display: none;
+    }
+
     .title {
         display: none;
     }

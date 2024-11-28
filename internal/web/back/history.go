@@ -3,7 +3,6 @@ package back
 import (
 	"encoding/json"
 	"fmt"
-	classic_utils "hangman-web/pkg/hangman-classic/pkg/utils"
 	"hangman-web/pkg/utils"
 	"html/template"
 	"io/ioutil"
@@ -25,7 +24,6 @@ func history(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Failed to open JSON file:", err)
 		return
 	}
-
 	defer jsonFile.Close()
 
 	byteValue, err := ioutil.ReadAll(jsonFile)
@@ -51,26 +49,18 @@ func history(w http.ResponseWriter, r *http.Request) {
 
 	var savesToDisplay []Save
 
-	for i, save := range saves.Saves {
+	for _, save := range saves.Saves {
 		if strings.ToLower(save.Username) != strings.ToLower(username) {
 			continue
 		}
 
 		status := utils.GetSaveStatus(save)
 
-		score := 0
-		for _, letter := range save.TestedLetters {
-			if classic_utils.IsLetterInWord(save.CurrentWord, letter) {
-				score++
-			}
-		}
-
 		savesToDisplay = append(savesToDisplay, Save{
 			Username:    save.Username,
 			Status:      status,
 			CurrentWord: save.CurrentWord,
-			Score:       score,
-			ID:          i,
+			Score:       save.Score,
 		})
 	}
 
@@ -80,7 +70,13 @@ func history(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = tmpl.Execute(w, savesToDisplay)
+	err = tmpl.Execute(w, struct {
+		Username string
+		Saves    []Save
+	}{
+		Username: username,
+		Saves:    savesToDisplay,
+	})
 	if err != nil {
 		fmt.Println("Failed to execute template:", err)
 	}

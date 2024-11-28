@@ -28,6 +28,14 @@ body {
     background-position: center;
 }
 
+.back-button {
+    position: absolute;
+    top: .5em;
+    left: 1em;
+    color: #fff;
+    cursor: pointer;
+}
+
 .title {
     color: #fff;
     position: absolute;
@@ -46,6 +54,22 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-height: 60%;
+    overflow-y: auto;
+}
+
+.container::-webkit-scrollbar {
+    width: 10px;
+}
+
+.container::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 3px solid rgba(0, 0, 0, 0);
+}
+
+.container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0);
 }
 
 table {
@@ -90,4 +114,10 @@ th, td {
 
 .btn-play:hover i {
     animation: rotate .4s linear;
+}
+
+@media only screen and (hover: none) and (pointer: coarse) {
+    .back-button {
+        display: none;
+    }
 }

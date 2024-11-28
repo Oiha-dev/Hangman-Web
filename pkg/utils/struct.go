@@ -16,7 +16,7 @@ type Save struct {
 	GoalWord      string   `json:"goal_word"`
 	TestedLetters []string `json:"tested_letters"`
 	Score         int      `json:"score"`
-	AttemptsLeft  int      `json:"attempts"`
+	AttemptsLeft  int      `json:"attempts_left"`
 }
 
 type Saves struct {

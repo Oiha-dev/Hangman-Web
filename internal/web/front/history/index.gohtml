@@ -10,13 +10,15 @@
 </head>
 <body>
 
+<h1 class="back-button" onclick="window.location.href='/login'"><=</h1>
+
 <div class="title">
     <h1>Historique des parties</h1>
+    <p>Logged as {{.Username}}</p>
 </div>
 
 <div class="container">
     <table>
-        <thead>
         <tr>
             <th>Joueur</th>
             <th>Statut</th>
@@ -24,18 +26,16 @@
             <th>Score</th>
             <th>Action</th>
         </tr>
-        </thead>
-        <tbody>
-        {{range .}}
+        {{range .Saves}}
             <tr>
                 <td>{{.Username}}</td>
                 <td>{{.Status}}</td>
                 <td>{{.CurrentWord}}</td>
                 <td>{{.Score}}</td>
-                <td><button class="btn-play" onclick="window.location.href='/game'"><i class="fas fa-redo"></i></button></td>
+                <td><button class="btn-disabled" disabled><i class="fas fa-redo"></i></button></td>
+                <!-- <td><button class="btn-play" onclick="window.location.href='/game'"><i class="fas fa-redo"></i></button></td> -->
             </tr>
         {{end}}
-        </tbody>
     </table>
 </div>
 

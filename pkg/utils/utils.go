@@ -60,3 +60,12 @@ func GetSaveStatus(save Save) string {
 func Split(s, sep string) []string {
 	return strings.Split(s, sep)
 }
+
+func IsPlayerInScoreboard(player Player, scoreboard Scoreboard) bool {
+	for _, p := range scoreboard.Players {
+		if p.Name == player.Name {
+			return true
+		}
+	}
+	return false
+}
