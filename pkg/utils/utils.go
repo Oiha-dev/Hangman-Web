@@ -47,6 +47,16 @@ func IsWinned(data structure.HangManData) bool {
 	return data.Word == data.ToFind
 }
 
+func GetSaveStatus(save Save) string {
+	if save.GoalWord == save.CurrentWord {
+		return "Winned"
+	} else if save.AttemptsLeft == 0 {
+		return "Lost"
+	} else {
+		return "In progress"
+	}
+}
+
 func Split(s, sep string) []string {
 	return strings.Split(s, sep)
 }

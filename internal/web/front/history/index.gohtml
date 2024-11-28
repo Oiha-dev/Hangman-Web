@@ -17,7 +17,6 @@
     <table>
         <thead>
         <tr>
-            <th>Date</th>
             <th>Joueur</th>
             <th>Statut</th>
             <th>Mot</th>
@@ -26,33 +25,17 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>2024-27-11 13:57</td>
-            <td>John Doe</td>
-            <td>Win</td>
-            <td>classe</td>
-            <td>4</td>
-            <td><a href="#" class="btn-play"><i class="fas fa-redo"></i></a></td>
-        </tr>
-        <tr>
-            <td>2024-26-11 07:25</td>
-            <td>Jane Doe</td>
-            <td>Loss</td>
-            <td>bureau</td>
-            <td>6</td>
-            <td><a href="#" class="btn-play"><i class="fas fa-redo"></i></a></td>
-        </tr>
-        <tr>
-            <td>2024-24-11 20:12</td>
-            <td>Rick Astley</td>
-            <td>Pending</td>
-            <td>po_be__e</td>
-            <td>0</td>
-            <td><a href="#" class="btn-play"><i class="fas fa-redo"></i></a></td>
-        </tr>
+        {{range .}}
+            <tr>
+                <td>{{.Username}}</td>
+                <td>{{.Status}}</td>
+                <td>{{.CurrentWord}}</td>
+                <td>{{.Score}}</td>
+                <td><button class="btn-play" onclick="window.location.href='/game'"><i class="fas fa-redo"></i></button></td>
+            </tr>
+        {{end}}
         </tbody>
     </table>
 </div>
 
 </body>
-</html>

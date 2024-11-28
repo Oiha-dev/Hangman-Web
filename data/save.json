@@ -2,98 +2,83 @@
   "saves": [
     {
       "username": "Oiha",
-      "current_word": "python",
-      "tested_letters": ["p", "y", "t", "h", "o", "n"]
-    },
-    {
-      "username": "Oiha",
-      "current_word": "hangman",
-      "tested_letters": ["h", "a", "n"]
+      "current_word": "h_ngm_n",
+      "goal_word": "hangman",
+      "tested_letters": ["h", "a", "n"],
+      "score": 2,
+      "attempts_left": 6
     },
     {
       "username": "Entys",
-      "current_word": "coding",
-      "tested_letters": ["c", "o", "d", "i"]
+      "current_word": "c_d_ng",
+      "goal_word": "coding",
+      "tested_letters": ["c", "o", "d", "i"],
+      "score": 4,
+      "attempts_left": 5
     },
     {
       "username": "Lucas Astley",
-      "current_word": "program",
-      "tested_letters": ["p", "r", "o", "g"]
+      "current_word": "pr_gr_m",
+      "goal_word": "program",
+      "tested_letters": ["p", "r", "o", "g"],
+      "score": 3,
+      "attempts_left": 4
     },
     {
       "username": "Lucas Astley",
-      "current_word": "developer",
-      "tested_letters": ["d", "e", "v"]
+      "current_word": "d_v_l_p_r",
+      "goal_word": "developer",
+      "tested_letters": ["d", "e", "v"],
+      "score": 2,
+      "attempts_left": 5
     },
     {
       "username": "WWWW",
-      "current_word": "computer",
-      "tested_letters": ["c", "o", "m", "p"]
+      "current_word": "c_mp_t_r",
+      "goal_word": "computer",
+      "tested_letters": ["c", "o", "m", "p"],
+      "score": 3,
+      "attempts_left": 4
     },
     {
       "username": "WWWW",
-      "current_word": "architecture",
-      "tested_letters": ["a", "r", "c", "h"]
+      "current_word": "arch_t_ct_r_",
+      "goal_word": "architecture",
+      "tested_letters": ["a", "r", "c", "h"],
+      "score": 2,
+      "attempts_left": 6
     },
     {
       "username": "Zeteox",
-      "current_word": "network",
-      "tested_letters": ["n", "e", "t", "w", "o"]
+      "current_word": "n_tw_rk",
+      "goal_word": "network",
+      "tested_letters": ["n", "e", "t", "w", "o"],
+      "score": 4,
+      "attempts_left": 3
     },
     {
       "username": "Zeteox",
-      "current_word": "hardware",
-      "tested_letters": ["h", "a", "r"]
+      "current_word": "h_rdwar_",
+      "goal_word": "hardware",
+      "tested_letters": ["h", "a", "r"],
+      "score": 2,
+      "attempts_left": 5
     },
     {
       "username": "Lxna",
-      "current_word": "keyboard",
-      "tested_letters": ["k", "e", "y", "b"]
+      "current_word": "k_yb_ard",
+      "goal_word": "keyboard",
+      "tested_letters": ["k", "e", "y", "b"],
+      "score": 3,
+      "attempts_left": 4
     },
     {
       "username": "Lxna",
-      "current_word": "mouse",
-      "tested_letters": ["m", "o", "u"]
-    },
-    {
-      "username": "Devex",
-      "current_word": "",
-      "tested_letters": []
-    },
-    {
-      "username": "ef",
-      "current_word": "",
-      "tested_letters": []
-    },
-    {
-      "username": "sef",
-      "current_word": "",
-      "tested_letters": []
-    },
-    {
-      "username": "sfsef",
-      "current_word": "",
-      "tested_letters": []
-    },
-    {
-      "username": "qzdqzd ",
-      "current_word": "",
-      "tested_letters": []
-    },
-    {
-      "username": "sefsef ",
-      "current_word": "",
-      "tested_letters": []
-    },
-    {
-      "username": "qsefsefzdqzd ",
-      "current_word": "",
-      "tested_letters": []
-    },
-    {
-      "username": "qzdsefsefqzd ",
-      "current_word": "",
-      "tested_letters": []
+      "current_word": "m_us_",
+      "goal_word": "mouse",
+      "tested_letters": ["m", "o", "u"],
+      "score": 2,
+      "attempts_left": 5
     }
   ]
 }
