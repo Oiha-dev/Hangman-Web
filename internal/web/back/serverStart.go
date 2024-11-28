@@ -16,6 +16,8 @@ func StartServer() {
 	http.HandleFunc("/guess", guessLetter)
 	http.HandleFunc("/fullword", fullWordGuess)
 	http.HandleFunc("/end", endScreen)
+	http.HandleFunc("/multi", multi)
+	http.HandleFunc("/multi/sse", multiServerSentEvents)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("internal/web/front"))))
 	http.Handle("/data/", http.StripPrefix("/data/", http.FileServer(http.Dir("data"))))
 

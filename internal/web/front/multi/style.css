@@ -1,0 +1,206 @@
+@font-face {
+    font-family: 'Chalk';
+    src: url('/data/Neat-Chalk.ttf') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: Chalk, sans-serif;
+}
+
+:root {
+    --initial-rotate: 0deg;
+    --rotation-direction: 1;
+    --random-delay: 0s;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #000;
+    background-image: url('/data/blackboard.webp');
+    background-size: cover;
+    background-position: center;
+}
+
+.title {
+    color: #fff;
+    position: absolute;
+    top: 0;
+    text-align: center;
+}
+
+.game-container {
+    display: flex;
+    width: 80%;
+    height: 70%;
+    position: relative;
+    top: 6vh;
+    color: #fff;
+}
+
+.left-side {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+#hangman-ascii {
+    padding-right: 4em;
+    font-size: 2rem;
+}
+
+.right-side {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.top-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+}
+
+.guess-word {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+#full-word-guess {
+    padding: 0.5rem;
+    font-size: 1rem;
+    margin-right: 0.5rem;
+    border-radius: 15px;
+    border: none;
+}
+
+.guess-word button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #fff;
+    background: #343434;
+    border: none;
+    border-radius: 15px;
+}
+
+.guess-word button:hover {
+    background: #3b3b3b;
+}
+
+.bottom-right {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(10, 3em);
+    grid-template-rows: repeat(3, 3em);
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.bottom-right button {
+    width: 40px;
+    height: 40px;
+    background: none;
+    color: rgba(255, 255, 255, 1);
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.bottom-right button.guessed {
+    width: 40px;
+    height: 40px;
+    background: none;
+    color: rgba(255, 255, 255, 0.5);
+    border: none;
+    font-size: 1.5rem;
+    cursor: not-allowed;
+    text-decoration: line-through rgba(255, 255, 255, 1);
+}
+
+.bottom-right .row-3 {
+    grid-column: span 1;
+}
+
+@media only screen and (max-width: 600px) {
+    .title {
+        display: none;
+    }
+
+    .game-container {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: 100vh;
+        top: -2.5em;
+        overflow: hidden;
+    }
+
+    .left-side {
+        font-size: 0.8rem;
+        padding-right: 0;
+    }
+
+    #hangman-ascii {
+        font-size: 1rem;
+        padding-right: 0;
+    }
+
+    .right-side {
+        width: 100%;
+        align-items: center;
+    }
+
+    .top-right {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    #full-word-guess {
+        padding: 0.3rem;
+        font-size: 0.7rem;
+        margin-right: 0.3rem;
+        border-radius: 10px;
+        border: none;
+        width: 60%;
+    }
+
+    .guess-word button {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.7rem;
+    }
+
+    .bottom-right {
+        grid-template-columns: repeat(10, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        width: 100%;
+        gap: 1px; /* Reduced gap */
+    }
+
+    .bottom-right button {
+        width: 100%;
+        height: 100%;
+        font-size: 0.8rem;
+    }
+
+    .bottom-right button.guessed {
+        width: 100%;
+        height: 100%;
+        font-size: 0.8rem;
+    }
+}
