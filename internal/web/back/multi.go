@@ -7,6 +7,7 @@ import (
 	"html/template"
 	"net/http"
 	"sync"
+	"time"
 )
 
 var (
@@ -15,6 +16,9 @@ var (
 )
 
 func multi(w http.ResponseWriter, r *http.Request) {
+	if multiPageUserCount >= 2 {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+	}
 	funcMap := template.FuncMap{
 		"split":    utils.Split,
 		"contains": classic_utils.ContainsStr,
@@ -40,19 +44,40 @@ func multi(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// Stream updates for user count using SSE
 func multiServerSentEvents(w http.ResponseWriter, r *http.Request) {
+	// Set headers for SSE
+	w.Header().Set("Content-Type", "text/event-stream")
+	w.Header().Set("Cache-Control", "no-cache")
+	w.Header().Set("Connection", "keep-alive")
+
 	// Increment user count
 	userCountMutex.Lock()
 	multiPageUserCount++
 	fmt.Println("User count:", multiPageUserCount)
 	userCountMutex.Unlock()
 
-	// Keep the connection open
-	<-r.Context().Done()
+	// Send initial user count
+	fmt.Fprintf(w, "data: %d\n\n", multiPageUserCount)
+	w.(http.Flusher).Flush()
 
-	// Decrement user count when connection closes
-	userCountMutex.Lock()
-	multiPageUserCount--
-	fmt.Println("User count:", multiPageUserCount)
-	userCountMutex.Unlock()
+	// Keep the connection open and send updates
+	for {
+		select {
+		case <-r.Context().Done():
+			// Decrement user count when connection closes
+			userCountMutex.Lock()
+			multiPageUserCount--
+			fmt.Println("User count:", multiPageUserCount)
+			userCountMutex.Unlock()
+			return
+		default:
+			// Send updated user count
+			userCountMutex.Lock()
+			fmt.Fprintf(w, "data: %d\n\n", multiPageUserCount)
+			userCountMutex.Unlock()
+			w.(http.Flusher).Flush()
+			time.Sleep(1 * time.Second) // Adjust the interval as needed
+		}
+	}
 }
