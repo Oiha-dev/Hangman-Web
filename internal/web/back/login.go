@@ -10,16 +10,20 @@ func LoginSubmit(w http.ResponseWriter, r *http.Request) {
 		name := r.FormValue("name")
 		difficulty := r.FormValue("difficulty")
 		http.SetCookie(w, &http.Cookie{
-			Name:    "playerName",
-			Value:   name,
-			Path:    "/",
-			Expires: time.Now().Add(24 * time.Hour),
+			Name:     "playerName",
+			Value:    name,
+			Path:     "/",
+			Expires:  time.Now().Add(24 * time.Hour),
+			Secure:   true,
+			SameSite: http.SameSiteStrictMode,
 		})
 		http.SetCookie(w, &http.Cookie{
-			Name:    "difficulty",
-			Value:   difficulty,
-			Path:    "/",
-			Expires: time.Now().Add(24 * time.Hour),
+			Name:     "difficulty",
+			Value:    difficulty,
+			Path:     "/",
+			Expires:  time.Now().Add(24 * time.Hour),
+			Secure:   true,
+			SameSite: http.SameSiteStrictMode,
 		})
 		http.Redirect(w, r, "/game", http.StatusSeeOther)
 	} else {
