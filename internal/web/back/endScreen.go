@@ -12,21 +12,22 @@ import (
 )
 
 func endScreen(w http.ResponseWriter, r *http.Request) {
-	// Retrieve the game data cookie
+	/*
+			This function is used to display the end screen of the game
+		    by getting the game data from the cookie and saving it in the save.json file
+	*/
 	gameDataCookie, err := r.Cookie("gameData")
 	if err != nil {
 		http.Error(w, "Game data not found", http.StatusInternalServerError)
 		return
 	}
 
-	// Unescape the game data
 	gameDataValue, err := url.QueryUnescape(gameDataCookie.Value)
 	if err != nil {
 		http.Error(w, "Error decoding game data", http.StatusInternalServerError)
 		return
 	}
 
-	// Unmarshal the game data
 	var gameData structure.HangManData
 	err = json.Unmarshal([]byte(gameDataValue), &gameData)
 	if err != nil {
@@ -34,14 +35,12 @@ func endScreen(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Retrieve the username cookie
 	usernameCookie, err := r.Cookie("playerName")
 	if err != nil {
 		http.Error(w, "Failed to get username cookie", http.StatusBadRequest)
 		return
 	}
 
-	// Save the game data into /data/save.json
 	gameSave := utils.Save{
 		Username:      usernameCookie.Value,
 		CurrentWord:   gameData.Word,

@@ -10,6 +10,10 @@ import (
 )
 
 func scoreboard(w http.ResponseWriter, r *http.Request) {
+	/*
+		This function is used to display the scoreboard of the game
+		by getting the saves from the save.json file
+	*/
 	jsonFile, err := os.Open("data/save.json")
 	if err != nil {
 		fmt.Println("Failed to open JSON file:", err)

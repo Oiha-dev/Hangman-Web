@@ -6,6 +6,10 @@ import (
 )
 
 func loginSubmit(w http.ResponseWriter, r *http.Request) {
+	/*
+		This function is used to set the player name and difficulty cookies
+		and redirect to the game page
+	*/
 	if r.Method == http.MethodPost {
 		name := r.FormValue("name")
 		difficulty := r.FormValue("difficulty")

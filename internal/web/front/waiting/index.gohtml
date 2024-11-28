@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/waiting/style.css">
+    <title>Hangman Web - Waiting</title>
+</head>
+<body>
+<div class="waiting-container">
+    <h1>Waiting for a second player<span class="blinking-dot">.</span></h1>
+    <button class="back-button" onclick="window.location.href='/'">Back</button>
+</div>
+
+<script>
+    // Connect to the SSE endpoint
+    const eventSource = new EventSource('/waiting/sse');
+
+    // Handle the custom "redirect" event
+    eventSource.addEventListener('redirect', (event) => {
+        window.location.href = event.data;
+    });
+
+    // Handle errors or close events
+    eventSource.onerror = () => {
+        console.error('SSE connection lost. Attempting to reconnect...');
+        eventSource.close(); // Close the connection to prevent looping.
+    };
+</script>
+</body>
+</html>

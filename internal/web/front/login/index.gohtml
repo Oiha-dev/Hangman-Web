@@ -32,8 +32,21 @@
             <option value="medium">Medium</option>
             <option value="hard">Hard</option>
         </select>
-        <button type="submit">Start Game</button>
+        <button type="submit">Singleplayer</button>
     </form>
+    <div class="multi-button">
+        <form method="POST" action="/multi">
+            <button type="submit">Multiplayer</button>
+        </form>
+    </div>
+    <div class="dual-button">
+        <form method="POST" action="/scoreboard">
+            <button type="submit">Scoreboard</button>
+        </form>
+        <form method="POST" action="/history">
+            <button type="submit">History</button>
+        </form>
+    </div>
 </div>
 
 </body>

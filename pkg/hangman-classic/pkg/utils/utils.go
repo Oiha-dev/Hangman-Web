@@ -1,12 +1,8 @@
 package classic_utils
 
 import (
-	"fmt"
 	"hangman-web/pkg/hangman-classic/structure"
 	"math/rand"
-	"os"
-	"strconv"
-	"strings"
 )
 
 func IsLetterInWord(word string, letter string) bool {
@@ -99,64 +95,4 @@ func GetWinner(player1 structure.Player, player2 structure.Player) structure.Pla
 	} else {
 		return player2
 	}
-}
-
-func GetAsciiFromFile(path string, frame int) [][]rune {
-	/*
-		This function is used to get the ascii art from a file
-		Return: a slice of runes containing the ascii art
-	*/
-	var ascii [][]rune
-	asciiContent, err := os.ReadFile(path)
-	if err != nil {
-		fmt.Errorf("Error: ", err)
-		return nil
-	}
-	splitAsciiContent := strings.Split(string(asciiContent), "\r\n")
-
-	// This first line contains the width and the second line contains the height
-	width, err := strconv.Atoi(splitAsciiContent[0])
-	if err != nil {
-		fmt.Errorf("Error: ", err)
-		return nil
-	}
-
-	height, err := strconv.Atoi(splitAsciiContent[1])
-	if err != nil {
-		fmt.Errorf("Error: ", err)
-		return nil
-	}
-
-	for i := 2 + height*(frame); i < height*(frame+1)+2; i++ {
-		if len(splitAsciiContent[i]) < width {
-			for len(splitAsciiContent[i]) < width {
-				splitAsciiContent[i] += " "
-			}
-		}
-		ascii = append(ascii, []rune(splitAsciiContent[i]))
-	}
-	return ascii
-}
-
-func CheckInputError(input string, alpha bool, dictionary []string) bool {
-	/*
-		This function is used to check if the input is valid
-		Return: true if the input is invalid, false otherwise
-	*/
-
-	if alpha {
-		if len(input) == 1 {
-			r := rune(input[0])
-			if (r >= 'a' && r <= 'z') || (r >= 'A' && r <= 'Z') {
-				return false // Valid letter
-			}
-		}
-		return true // Invalid input
-	}
-
-	if dictionary != nil {
-		return !ContainsStr(dictionary, input) // Return true if input is not in dictionary
-	}
-
-	return false
 }

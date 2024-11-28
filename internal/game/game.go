@@ -46,6 +46,7 @@ func ImportWords() ([]string, []string, []string) {
 func GetRandomWord(easyWords, mediumWords, hardWords []string, difficulty string) string {
 	/*
 		This function is used to get a random word from the words slice based on the difficulty
+		params: the words slices for easy, medium, and hard difficulties, the difficulty
 		Return: a random word based on the difficulty
 	*/
 	rand.Seed(time.Now().UnixNano())
@@ -65,6 +66,7 @@ func GetRandomWord(easyWords, mediumWords, hardWords []string, difficulty string
 func RoundLogic(Jose *structure.HangManData, guessLetter string) {
 	/*
 		This function is used to update Jose with the guessed letter
+		params: the game data, the guessed letter
 	*/
 	Jose.GuessedLetters = append(Jose.GuessedLetters, strings.ToUpper(guessLetter))
 	if !classic_utils.IsLetterInWord(Jose.Word, guessLetter) {

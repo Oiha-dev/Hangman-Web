@@ -15,6 +15,10 @@ import (
 )
 
 func gamePage(w http.ResponseWriter, r *http.Request) {
+	/*
+		This function is used to display the game page
+		by getting the game data from the cookie
+	*/
 	cookie, err := r.Cookie("playerName")
 	if err != nil {
 		http.Error(w, "Player not found", http.StatusNotFound)

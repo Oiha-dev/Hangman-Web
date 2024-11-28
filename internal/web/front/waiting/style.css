@@ -5,10 +5,6 @@
     font-style: normal;
 }
 
-* {
-    font-family: Chalk, sans-serif;
-}
-
 body {
     display: flex;
     flex-direction: column;
@@ -20,38 +16,49 @@ body {
     background-image: url('/data/blackboard.webp');
     background-size: cover;
     background-position: center;
+    font-family: 'Chalk', sans-serif;
 }
 
-
-.end-title {
-    font-size: 2rem;
-    color: #fff;
-    margin-top: 1rem;
+.waiting-container {
     text-align: center;
-}
-
-.end-container{
     color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    margin: 1rem;
-    font-size: 1.5rem;
+    padding: 2rem;
 }
 
-.end-container button {
+.blinking-dot {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.back-button {
     background-color: #343434;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    box-sizing: border-box;
-    font-size: 1.3rem;
+    padding: 15px 30px;
+    font-size: 1.5em;
+    margin-top: 20px;
+    font-family: 'Chalk', sans-serif;
 }
 
-.end-container button:hover {
+.back-button:hover {
     background-color: #3b3b3b;
+}
+
+@media (max-width: 480px) {
+    .waiting-container {
+        width: 100%;
+        padding: 0.5rem;
+    }
+
+    .back-button {
+        font-size: 0.9rem;
+        padding: 6px;
+    }
 }

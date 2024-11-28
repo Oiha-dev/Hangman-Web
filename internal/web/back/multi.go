@@ -1,83 +1,64 @@
 package back
 
 import (
-	"fmt"
+	"encoding/json"
+	"hangman-web/internal/game"
 	classic_utils "hangman-web/pkg/hangman-classic/pkg/utils"
 	"hangman-web/pkg/utils"
-	"html/template"
 	"net/http"
-	"sync"
+	"net/url"
 	"time"
 )
 
-var (
-	multiPageUserCount int
-	userCountMutex     sync.Mutex
-)
-
 func multi(w http.ResponseWriter, r *http.Request) {
-	if multiPageUserCount >= 2 {
-		http.Redirect(w, r, "/login", http.StatusSeeOther)
+	createCookie(w, r)
+	renderTemplate(w, "game/index", nil)
+}
+
+func createCookie(w http.ResponseWriter, r *http.Request) {
+	/*
+		This function is used to create the cookie for the game data
+	*/
+	name, err := r.Cookie("playerName")
+	if err != nil {
+		http.Error(w, "Player name cookie not found", http.StatusBadRequest)
+		return
 	}
-	funcMap := template.FuncMap{
-		"split":    utils.Split,
-		"contains": classic_utils.ContainsStr,
+	listNames = append(listNames, name.Value)
+
+	time.Sleep(1 * time.Second)
+
+	easyWords, mediumWords, hardWords := game.ImportWords()
+	randomWord := game.GetRandomWord(easyWords, mediumWords, hardWords, "medium")
+
+	hangmanData := utils.HangManDataMulti{
+		Word:           randomWord,
+		ToFind:         classic_utils.FirstPrintWord(randomWord),
+		Attempts:       9,
+		HangmanState:   0,
+		GuessedLetters: []string{},
+		GuessedWords:   []string{},
+		Score:          0,
+		IsWinned:       false,
+		Player1:        utils.Player{Name: listNames[0], Score: 0, Position: 0},
+		Player2:        utils.Player{Name: listNames[1], Score: 0, Position: 0},
+		CurrentPlayer:  1,
 	}
 
-	tmpl, err := template.New("index.gohtml").Funcs(funcMap).ParseFiles("internal/web/front/multi/index.gohtml")
+	jsonData, err := json.Marshal(hangmanData)
 	if err != nil {
-		http.Error(w, "Error parsing template", http.StatusInternalServerError)
+		http.Error(w, "Error creating JSON data", http.StatusInternalServerError)
+		userCountMutex.Unlock()
 		return
 	}
 
-	userCountMutex.Lock()
-	data := struct {
-		UserCount int
-	}{
-		UserCount: multiPageUserCount,
-	}
-	userCountMutex.Unlock()
-
-	err = tmpl.Execute(w, data)
-	if err != nil {
-		http.Error(w, "Error executing template", http.StatusInternalServerError)
-	}
-}
-
-// Stream updates for user count using SSE
-func multiServerSentEvents(w http.ResponseWriter, r *http.Request) {
-	// Set headers for SSE
-	w.Header().Set("Content-Type", "text/event-stream")
-	w.Header().Set("Cache-Control", "no-cache")
-	w.Header().Set("Connection", "keep-alive")
-
-	// Increment user count
-	userCountMutex.Lock()
-	multiPageUserCount++
-	fmt.Println("User count:", multiPageUserCount)
-	userCountMutex.Unlock()
-
-	// Send initial user count
-	fmt.Fprintf(w, "data: %d\n\n", multiPageUserCount)
-	w.(http.Flusher).Flush()
-
-	// Keep the connection open and send updates
-	for {
-		select {
-		case <-r.Context().Done():
-			// Decrement user count when connection closes
-			userCountMutex.Lock()
-			multiPageUserCount--
-			fmt.Println("User count:", multiPageUserCount)
-			userCountMutex.Unlock()
-			return
-		default:
-			// Send updated user count
-			userCountMutex.Lock()
-			fmt.Fprintf(w, "data: %d\n\n", multiPageUserCount)
-			userCountMutex.Unlock()
-			w.(http.Flusher).Flush()
-			time.Sleep(1 * time.Second) // Adjust the interval as needed
-		}
-	}
+	http.SetCookie(w, &http.Cookie{
+		Name:     "hangmanMulti",
+		Value:    url.QueryEscape(string(jsonData)),
+		Path:     "/",
+		Expires:  time.Now().Add(24 * time.Hour),
+		HttpOnly: true,
+		SameSite: http.SameSiteStrictMode,
+		Secure:   true,
+	})
 }

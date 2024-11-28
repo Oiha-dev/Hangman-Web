@@ -6,6 +6,10 @@ import (
 )
 
 func StartServer() {
+	/*
+		This function is used to start the server
+		and set the routes for the server
+	*/
 	fmt.Println("(http://localhost:8080) - Server started on port 8080")
 	fmt.Println("Press Ctrl+C to stop the server")
 
@@ -17,8 +21,9 @@ func StartServer() {
 	http.HandleFunc("/guess", guessLetter)
 	http.HandleFunc("/fullword", fullWordGuess)
 	http.HandleFunc("/end", endScreen)
+	http.HandleFunc("/waiting", waiting)
+	http.HandleFunc("/waiting/sse", waitingSSE)
 	http.HandleFunc("/multi", multi)
-	http.HandleFunc("/multi/sse", multiServerSentEvents)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("internal/web/front"))))
 	http.Handle("/data/", http.StripPrefix("/data/", http.FileServer(http.Dir("data"))))
 

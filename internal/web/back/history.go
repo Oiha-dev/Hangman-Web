@@ -12,6 +12,10 @@ import (
 )
 
 func history(w http.ResponseWriter, r *http.Request) {
+	/*
+		This function is used to display the history of the game
+		by getting the saves from the save.json file
+	*/
 	usernameCookie, err := r.Cookie("playerName")
 	if err != nil {
 		http.Error(w, "Failed to get username cookie", http.StatusBadRequest)
