@@ -119,6 +119,13 @@ body {
     background-color: #3b3b3b;
 }
 
+.dual-button {
+    padding-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
 @media (max-width: 480px) {
     .game-title {
         font-size: 2rem;

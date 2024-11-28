@@ -21,10 +21,17 @@ body {
     background-position: center;
 }
 
+.back-button {
+    position: absolute;
+    top: .5em;
+    right: 1em;
+    color: #fff;
+    cursor: pointer;
+}
+
 h1 {
     font-size: 4em;
     position: absolute;
-    left: 2.5vw;
 }
 
 .scoreboard {
@@ -172,6 +179,10 @@ th {
 }
 
 @media only screen and (hover: none) and (pointer: coarse) {
+    .back-button {
+        display: none;
+    }
+
     h1 {
         position: absolute;
         top: 3%;

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman Web - History</title>
+    <link rel="icon" href="/data/favicon.png">
+    <link rel="stylesheet" href="/static/history/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<h1 class="back-button" onclick="window.location.href='/login'"><=</h1>
+
+<div class="title">
+    <h1>Historique des parties</h1>
+    <p>Logged as {{.Username}}</p>
+</div>
+
+<div class="container">
+    <table>
+        <tr>
+            <th>Joueur</th>
+            <th>Statut</th>
+            <th>Mot</th>
+            <th>Score</th>
+            <th>Action</th>
+        </tr>
+        {{range .Saves}}
+            <tr>
+                <td>{{.Username}}</td>
+                <td>{{.Status}}</td>
+                <td>{{.CurrentWord}}</td>
+                <td>{{.Score}}</td>
+                <td><button class="btn-disabled" disabled><i class="fas fa-redo"></i></button></td>
+                <!-- <td><button class="btn-play" onclick="window.location.href='/game'"><i class="fas fa-redo"></i></button></td> -->
+            </tr>
+        {{end}}
+    </table>
+</div>
+
+</body>
