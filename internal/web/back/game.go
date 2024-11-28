@@ -11,6 +11,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 )
 
 func gamePage(w http.ResponseWriter, r *http.Request) {
@@ -48,9 +49,12 @@ func gamePage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	http.SetCookie(w, &http.Cookie{
-		Name:  "gameData",
-		Value: url.QueryEscape(string(gameDataJSON)),
-		Path:  "/",
+		Name:     "gameData",
+		Value:    url.QueryEscape(string(gameDataJSON)),
+		Path:     "/",
+		Expires:  time.Now().Add(24 * time.Hour),
+		Secure:   true,
+		SameSite: http.SameSiteStrictMode,
 	})
 
 	data := map[string]interface{}{

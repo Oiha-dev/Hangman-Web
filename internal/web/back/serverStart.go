@@ -12,6 +12,7 @@ func StartServer() {
 	http.HandleFunc("/", index)
 	http.HandleFunc("/submit", loginSubmit)
 	http.HandleFunc("/scoreboard", scoreboard)
+	http.HandleFunc("/history", history)
 	http.HandleFunc("/game", gamePage)
 	http.HandleFunc("/guess", guessLetter)
 	http.HandleFunc("/fullword", fullWordGuess)
