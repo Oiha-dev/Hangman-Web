@@ -27,11 +27,13 @@ We decided to add some features to the game, such as:
 
 We also decided to choose a theme for the game, which is "Chalk and Blackboard", so the game is displayed as if it was written on a blackboard.
 
+The final project repository can be founded [here](https://ytrack.learn.ynov.com/git/lalucas/hangman-web)
+
 ---
 
 ## 🎥 Demo
 
-![PlaceHolder](https://placehold.co/600x400?text=Demo+PlaceHolder)
+![PlaceHolder](https://i.imgur.com/fVVQMqG.gif)
 
 ---
 
@@ -63,7 +65,7 @@ The project was developed using the following technologies:
 
 ## 🎬 Presentation
 
-You can find the pitch presentation of the project [here](https://docs.google.com/presentation/d/1)
+You can find the pitch presentation of the project [here](https://pitch.com/v/prsentation-hangman-web-dud229)
 The link for the trello board is [here](https://trello.com/invite/b/673b3e5d931c93fb4d39be06/ATTIeca5d6fe7b16951066005d2516c11ebe80A02AEA/hangman-web-🌐)
 
 ---
